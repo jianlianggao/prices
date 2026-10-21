@@ -1,13 +1,19 @@
 ---
-name: charts
-description: House style for charts of the price data. Use whenever making a chart or figure.
-user-invocable: false  # the agent loads it; it isn't a / command
+name: data-report
+description: Summarise a raw price file - dates, gaps, missing values and the largest daily changes.
+argument-hint: <ticker, for example ULVR.L>
+disable-model-invocation: true  # only runs when you type /data-report
 ---
 
-# Charts
+# Data report
 
-1. Plot the percentage change in `Close` from the first date in the chart.
-2. One line per ticker, in these colours: AAPL `#555555`, NVDA `#76B900`, ULVR.L `#1F36C7`.
-3. A title saying what is shown and the date range. Label the y axis "Change since first day (%)".
-4. A note in the bottom corner: "Source: Yahoo Finance".
-5. Save to `figures/` as a PNG at 150 dpi. Don't call `plt.show()`.
+Report on the raw price file for the ticker you were given. Don't change any files.
+
+1. Load it with `prices.load_prices`.
+2. Report, as a short table:
+   - the first and last date, and the number of rows
+   - the lowest and highest `Close`
+   - missing values in each column
+   - trading days in the other tickers' files that are missing from this one
+   - the three largest daily percentage changes in `Close`, up or down, with their dates
+3. End with one line on anything to watch for before using the data.
